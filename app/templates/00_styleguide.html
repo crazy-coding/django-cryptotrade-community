@@ -1,0 +1,207 @@
+<!DOCTYPE html>
+<html lang="en">
+
+    <head>
+        <meta charset="utf-8">
+        <title>Style guide</title>
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta http-equiv="x-ua-compatible" content="ie=edge"><!-- Favicon data-->
+        <link rel="apple-touch-icon" sizes="152x152" href="/apple-touch-icon.png">
+        <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+        <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
+        <link rel="manifest" href="/site.webmanifest">
+        <link rel="mask-icon" href="/safari-pinned-tab.svg" color="#5bbad5">
+        <meta name="msapplication-TileColor" content="#2b5797">
+        <meta name="theme-color" content="#ffffff">
+        <link href="https://fonts.googleapis.com/css?family=Roboto:400,500,700&amp;display=swap" rel="stylesheet">
+        <link href="https://cdn.quilljs.com/1.3.6/quill.snow.css" rel="stylesheet">
+        <link rel="stylesheet" href="css/styles.min.css">
+        <style>
+            .styleguide {
+                padding: 5%;
+                background: white;
+            }
+
+            .section {
+                margin-bottom: 50px;
+            }
+
+            .row {
+                margin-bottom: 30px;
+            }
+
+            .buttons {
+                display: flex;
+            }
+
+            .alert,
+            .form-group {
+                margin-bottom: 30px;
+            }
+
+            .btn {
+                margin-right: 30px;
+            }
+
+            @media (max-width: 730px) {
+                .btn {
+                    margin: 0 0 20px 0;
+                }
+            }
+        </style><!-- The "defer" attribute is missing in order to prevent the absence of editor when page load.-->
+        <script src="https://cdn.quilljs.com/1.3.7/quill.js"></script>
+        <script src="js/main.min.js" defer></script>
+        
+    </head>
+
+    <body class="body">
+        <header class="body__header header">
+            <div class="header__container">
+                <div class="header__wrapper">
+                    <div class="nav-toggle" onclick="js_menu_toggle.classList.toggle('is-active');
+                           this.classList.toggle('is-active')">
+                        <div class="nav-toggle__container">
+                            <div class="nav-toggle__bar"></div>
+                            <div class="nav-toggle__bar"></div>
+                            <div class="nav-toggle__bar"></div>
+                        </div>
+                    </div>
+                    <div class="header__inner"><a class="header__logo-wrapper" href="#"><img class="header__logo" src="{% static 'images/logo.png" alt="Logo"></a>
+                        <div class="header__buttons"><a class="header__btn btn btn--theme-2" href="#">Your posts</a><a class="header__btn btn btn--theme-2" href="#">Create a post</a><button class="header__btn btn btn--theme-3" type="button">Login</button></div>
+                    </div>
+                </div>
+                <div class="nav" id="js_menu_toggle">
+                    <div class="nav__container">
+                        <ul class="nav__list">
+                            <li class="nav__item"><a class="nav__link" href="home.html">POSTS</a></li>
+                            <li class="nav__item"><a class="nav__link" href="community-rules.html">RULES</a></li>
+                            <li class="nav__item"><a class="nav__link" href="#">RAPLEV.COM</a></li>
+                        </ul>
+                        <div class="nav__search-field form-group">
+                            <div class="form-group__field-group"><input class="form-group__field" name="blank" type="search" placeholder="Search in community" required><svg class="form-group__required">
+                                    <use xlink:href="{% static 'images/sprite.svg' %}#exclamation-circle"></use>
+                                </svg></div>
+                        </div><button class="nav__search-btn btn btn--theme-1" type="button">SEARCH</button>
+                    </div>
+                </div>
+            </div>
+        </header>
+        <div class="body__container">
+            <div class="styleguide">
+                <div class="section">
+                    <h1>This is Heading 1</h1>
+                    <h2>This is Heading 2</h2>
+                    <h3>This is Heading 3</h3>
+                    <h4>This is Heading 4</h4>
+                    <h5>This is Heading 5</h5>
+                    <p>This is a paragraph with <b>bold</b>, <i>italic</i> and <small>small</small> text.</p>
+                </div>
+                <div class="section">
+                    <div class="row buttons"><button class="btn btn--theme-1" type="button">BUTTON 1</button><button class="btn btn--theme-2" type="button">BUTTON 2</button><button class="btn btn--theme-3" type="button">BUTTON 3</button><button class="btn btn--theme-4" type="button">Edit post</button></div>
+                </div>
+                <div class="section" style="max-width: 600px">
+                    <aside class="alert alert--success"><span class="alert__text">Alert 1</span><button class="alert__close-btn" type="button" onclick="alertNote.close(this)"><svg class="alert__close-icon">
+                                <use xlink:href="{% static 'images/sprite.svg' %}#times"></use>
+                            </svg></button></aside>
+                    <aside class="alert alert--note"><span class="alert__text">Alert 2</span><button class="alert__close-btn" type="button" onclick="alertNote.close(this)"><svg class="alert__close-icon">
+                                <use xlink:href="{% static 'images/sprite.svg' %}#times"></use>
+                            </svg></button></aside>
+                    <aside class="alert alert--warning"><span class="alert__text">Alert 3</span><button class="alert__close-btn" type="button" onclick="alertNote.close(this)"><svg class="alert__close-icon">
+                                <use xlink:href="{% static 'images/sprite.svg' %}#times"></use>
+                            </svg></button></aside>
+                </div>
+                <form class="section js-validation-toggle" action="#" style="max-width: 800px">
+                    <div class="form-group">
+                        <div class="form-group__field-group"><input class="form-group__field" name="blank" placeholder="Simple text field" required><svg class="form-group__required">
+                                <use xlink:href="{% static 'images/sprite.svg' %}#exclamation-circle"></use>
+                            </svg></div>
+                    </div>
+                    <div class="form-group">
+                        <div class="form-group__field-group"><input class="form-group__field" name="blank" autocomplete="given-name" placeholder="First name" required><svg class="form-group__required">
+                                <use xlink:href="{% static 'images/sprite.svg' %}#exclamation-circle"></use>
+                            </svg></div>
+                    </div>
+                    <div class="form-group">
+                        <div class="form-group__field-group"><input class="form-group__field" name="blank" autocomplete="family-name" placeholder="Last name" required><svg class="form-group__required">
+                                <use xlink:href="{% static 'images/sprite.svg' %}#exclamation-circle"></use>
+                            </svg></div>
+                    </div>
+                    <div class="form-group">
+                        <div class="form-group__field-group"><input class="form-group__field" name="blank" autocomplete="nickname" placeholder="Username" required><svg class="form-group__required">
+                                <use xlink:href="{% static 'images/sprite.svg' %}#exclamation-circle"></use>
+                            </svg></div>
+                    </div>
+                    <div class="form-group">
+                        <div class="form-group__field-group"><input class="form-group__field" name="blank" autocomplete="address-line1" placeholder="Address" required><svg class="form-group__required">
+                                <use xlink:href="{% static 'images/sprite.svg' %}#exclamation-circle"></use>
+                            </svg></div>
+                    </div>
+                    <div class="form-group">
+                        <div class="form-group__field-group"><input class="form-group__field" name="blank" autocomplete="postal-code" placeholder="Zip code" required><svg class="form-group__required">
+                                <use xlink:href="{% static 'images/sprite.svg' %}#exclamation-circle"></use>
+                            </svg></div>
+                    </div>
+                    <div class="form-group">
+                        <div class="form-group__field-group"><input class="form-group__field" name="blank" type="number" placeholder="Number field" required><svg class="form-group__required">
+                                <use xlink:href="{% static 'images/sprite.svg' %}#exclamation-circle"></use>
+                            </svg></div>
+                    </div>
+                    <div class="form-group">
+                        <div class="form-group__field-group"><input class="form-group__field" name="blank" type="tel" autocomplete="tel" placeholder="+1 2345 678910" required><svg class="form-group__required">
+                                <use xlink:href="{% static 'images/sprite.svg' %}#exclamation-circle"></use>
+                            </svg></div>
+                    </div>
+                    <div class="form-group">
+                        <div class="form-group__field-group"><input class="form-group__field" name="blank" type="password" autocomplete="new-password" placeholder="New password" required><svg class="form-group__required">
+                                <use xlink:href="{% static 'images/sprite.svg' %}#exclamation-circle"></use>
+                            </svg></div>
+                    </div>
+                    <div class="form-group">
+                        <div class="form-group__field-group"><input class="form-group__field" name="blank" type="email" pattern="[a-z0-9._%+-]+@[a-z0-9.-]+.[a-z]{2,4}" placeholder="Email address" required><svg class="form-group__required">
+                                <use xlink:href="{% static 'images/sprite.svg' %}#exclamation-circle"></use>
+                            </svg></div>
+                    </div>
+                    <div class="form-group">
+                        <div class="form-group__field-group"><input class="form-group__field js-datepicker-toggle" name="date" type="text" pattern="((?:19|20)\d{2})\s*-(1[012]|0?[1-9])-\s*(3[01]|[12][0-9]|0?[1-9])" autocomplete="off" placeholder="2019-12-06" required><svg class="form-group__calendar">
+                                <use xlink:href="{% static 'images/sprite.svg' %}#calendar"></use>
+                            </svg></div>
+                    </div>
+                    <div class="form-group">
+                        <div class="form-group__field-group"><span class="form-group__triangle"></span><select class="form-group__field" required>
+                                <option value="" selected disabled>Select field</option>
+                                <option value="#">Option 1</option>
+                                <option value="#">Option 2</option>
+                                <option value="#">Option 3</option>
+                            </select></div>
+                    </div>
+                    <div class="form-group form-group--textarea">
+                        <div class="form-group__field-group"><textarea class="form-group__field" name="blank" rows="6">Large Textarea field</textarea><svg class="form-group__required">
+                                <use xlink:href="{% static 'images/sprite.svg' %}#exclamation-circle"></use>
+                            </svg></div>
+                    </div><label class="form-group"><span class="form-group__caption">Field with a label</span><span class="form-group__field-group"><input class="form-group__field" name="blank" placeholder="Text field" required></span></label><button class="btn btn--theme-2" type="submit">SUBMIT</button>
+                </form>
+                <div class="section" style="max-width: 200px">
+                    <nav class="pagination">
+                        <ul class="pagination__list">
+                            <li><a class="pagination__btn" href="?page=1" rel="first"><svg class="pagination__icon">
+                                        <use xlink:href="{% static 'images/sprite.svg' %}#caret-left"></use>
+                                    </svg></a></li>
+                            <li class="pagination__item is-active"><a class="pagination__link" href="?page=1">1</a></li>
+                            <li class="pagination__item"><a class="pagination__link" href="?page=2">2</a></li>
+                            <li class="pagination__item"><a class="pagination__link" href="?page=3">3</a></li>
+                            <li class="pagination__item is-disabled"><span>...</span></li>
+                            <li class="pagination__item"><a class="pagination__link" href="?page=3">17</a></li>
+                            <li><a class="pagination__btn" href="?page=4" rel="next"><svg class="pagination__icon">
+                                        <use xlink:href="{% static 'images/sprite.svg' %}#caret-right"></use>
+                                    </svg></a></li>
+                        </ul>
+                    </nav>
+                </div>
+                <div class="section">
+                    <p class="post__text show-more" style="width: 400px">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Quisque pretium lorem at magna varius maximus. Proin elementum vulputate placerat. Duis fermentum, risus in hendrerit euismod, erat diam blandit nisi, eu elementum libero turpis eu enim tiam lobortis libero quis elit venenatis dignissim. Nullam vel laoreet sapien. Nulla ut aliquam quam, et rhoncus justo. Nam eget lectus consectetur. Aenean vehicula est non ipsum efficitur laoreet. <span class="show-more__hidden">Error quasi vitae illum recusandae id commodi blanditiis veritatis quibusdam non deleniti! Lorem ipsum dolor sit amet consectetur adipisicing elit. Ex modi harum officiis blanditiis delectus temporibus quo animi vitae omnis magnam officia ab, debitis molestias. Nisi tempore esse consequatur necessitatibus. Numquam. </span><button class="show-more__btn js-hidden-text" type="button" onclick="hiddenText.toggle(this)">Read more</button></p>
+                </div>
+            </div>
+        </div>
+    </body>
+
+</html>

@@ -1,0 +1,48 @@
+{% load i18n %}
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+
+    <head>
+        <meta charset="utf-8">
+        <title>{% block title %}Commnuity | Raplev{% endblock %}</title>
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta http-equiv="x-ua-compatible" content="ie=edge"><!-- Favicon data-->
+        <link rel="apple-touch-icon" sizes="152x152" href="{% static 'apple-touch-icon.png' %}">
+        <link rel="icon" type="image/png" sizes="32x32" href="{% static 'favicon-32x32.png' %}">
+        <link rel="icon" type="image/png" sizes="16x16" href="{% static 'favicon-16x16.png' %}">
+        <link rel="manifest" href="{% static 'site.webmanifest' %}">
+        <link rel="mask-icon" href="{% static 'safari-pinned-tab.svg' %}" color="#5bbad5">
+        <meta name="msapplication-TileColor" content="#2b5797">
+        <meta name="theme-color" content="#ffffff">
+        <link href="{% static 'css/fonts.googleapis.css' %}" rel="stylesheet">
+        <link href="{% static 'css/quill.snow.css' %}" rel="stylesheet">
+        <link rel="stylesheet" href="{% static 'css/styles.min.css' %}">
+        <!-- The "defer" attribute is missing in order to prevent the absence of editor when page load.-->
+        <script src="{% static 'js/jquery.min.js' %}"></script>
+        <script src="{% static 'js/quill.js' %}"></script>
+        <script src="{% static 'js/main.min.js' %}" defer></script>
+        <script src="{% static 'js/client.js' %}" ></script>
+
+        <style>body.is-authenticated .not-authenticated {display: none;} body .need-authenticated {display: none;} body.is-authenticated .need-authenticated {display: block;} .post__text {word-break: break-all;}</style>
+        {% block head-script %}{% endblock %}
+    </head>
+
+    <body class="body {% block body %}{% endblock %}">
+        <section class="alert-wrapper" style="position: fixed; top: 50px; right: 50px; z-index: 403;"></section>
+        {% block content %}
+        {% endblock %}
+
+        <script>
+            var main_site_url = '{{ main_site_url }}';
+            $(function () {
+                if (isAuthenticated()) {
+                    document.body.classList.add('is-authenticated');
+                }
+            })
+        </script>
+        {% block bottom-script %}
+        {% endblock %}
+    </body>
+
+</html>

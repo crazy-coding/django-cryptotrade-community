@@ -1,0 +1,41 @@
+{% extends 'base-site.html' %}
+{% load i18n %}
+{% load static %}
+
+{% block title %}Home{% endblock %}
+
+{% block page-inner %}
+<div class="body__container">
+    <div class="home js-tablist-toggle">
+        <div class="home__tab-control body__wrapper js-tablist-triggers">
+            <span class="home__tab-btn">New Posts</span>
+            <span class="home__tab-btn is-active">Top Posts</span>
+        </div>
+        <div class="home__wrapper body__wrapper">
+            <div class="home__tabs js-tablist-tabs">
+                <div class="home__tab" id="new_posts">
+                    
+                    <div class="posts"></div>
+                    <nav class="pagination"></nav>
+                </div>
+                <div class="home__tab is-active" id="top_posts">
+                    <div class="posts"></div>
+                    <nav class="pagination"></nav>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
+
+{% block bottom-script %}
+{{ block.super }}
+<script>
+$(function () {
+    if (isAuthenticated()) {
+        showPosts(main_site_url + '/posts/?t=new');
+        showPosts(main_site_url + '/posts/?t=top');
+    }
+})
+</script>
+{% endblock %}

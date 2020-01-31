@@ -1,0 +1,21 @@
+{% extends 'base-site.html' %}
+{% load i18n %}
+{% load static %}
+
+{% block title %}Report post{% endblock %}
+
+{% block page-inner %}
+<div class="body__container">
+    <div class="body__wrapper report-post">
+        <aside class="report-post__alert alert alert--success"><span class="alert__text">Report has been sent</span><button class="alert__close-btn" type="button" onclick="alertNote.close(this)"><svg class="alert__close-icon">
+                    <use xlink:href="{% static 'images/sprite.svg' %}#times"></use>
+                </svg></button></aside><label class="report-post__field form-group"><span class="form-group__caption">What is the reason for flagging post?</span><span class="form-group__field-group"><span class="form-group__triangle"></span><select class="form-group__field" required>
+                    <option value="" selected disabled>Select a reason</option>
+                    <option value="#">Reason 1</option>
+                    <option value="#">Reason 2</option>
+                    <option value="#">Reason 3</option>
+                    <option value="#">Other reason</option>
+                </select></span></label><label class="report-post__field form-group"><span class="form-group__caption">Other reason</span><span class="form-group__field-group"><input class="form-group__field" name="blank" placeholder="Please Specify" required></span></label><label class="report-post__field form-group form-group--textarea"><span class="form-group__caption">Message (optional)</span><span class="form-group__field-group"><textarea class="form-group__field" name="blank" rows="9" placeholder="Enter your message"></textarea></span></label><button class="report-post__send btn btn--theme-1" type="button">SEND</button>
+    </div>
+</div>
+{% endblock %}

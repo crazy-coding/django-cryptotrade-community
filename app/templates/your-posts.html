@@ -1,0 +1,23 @@
+{% extends 'base-site.html' %}
+{% load i18n %}
+{% load static %}
+
+{% block title %}Your Posts{% endblock %}
+
+{% block page-inner %}
+<div class="body__container">
+    <div class="posts body__wrapper" id="my_posts">
+        <div class="posts"></div>
+        <nav class="pagination"></nav>
+    </div>
+</div>
+{% endblock %}
+
+{% block bottom-script %}
+{{ block.super }}
+<script>
+$(function () {
+    showPosts(main_site_url + '/posts/?t=my');
+})
+</script>
+{% endblock %}

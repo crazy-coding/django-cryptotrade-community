@@ -1,0 +1,59 @@
+{% extends 'base.html' %}
+{% load i18n %}
+{% load static %}
+
+{% block content %}
+<header class="body__header header">
+    <div class="header__container">
+        <div class="header__wrapper">
+            <div class="nav-toggle" onclick="js_menu_toggle.classList.toggle('is-active');
+                   this.classList.toggle('is-active')">
+                <div class="nav-toggle__container">
+                    <div class="nav-toggle__bar"></div>
+                    <div class="nav-toggle__bar"></div>
+                    <div class="nav-toggle__bar"></div>
+                </div>
+            </div>
+            <div class="header__inner">
+                <a class="header__logo-wrapper" href="/">
+                    <img class="header__logo" src="{% static 'images/logo.png' %}" alt="Logo">
+                </a>
+                <div class="header__buttons">
+                    <a class="header__btn btn btn--theme-2 need-authenticated" href="{% url 'your-posts' %}">Your posts</a>
+                    <a class="header__btn btn btn--theme-2 need-authenticated" href="{% url 'community-create-post' %}">Create a post</a>
+                    <a class="header__btn btn btn--theme-3 not-authenticated" href="{% url 'login' %}">Login</a>
+                    <a class="header__btn btn btn--theme-3 need-authenticated" href="javascript: logout();">Logout</a>
+                </div>
+            </div>
+        </div>
+        <div class="nav" id="js_menu_toggle">
+            <form action="{% url 'search-results' %}">
+                <div class="nav__container">
+                    <ul class="nav__list">
+                        <li class="nav__item is-active"><a class="nav__link" href="{% url 'home' %}">POSTS</a></li>
+                        <li class="nav__item"><a class="nav__link" href="{% url 'community-rules' %}">RULES</a></li>
+                        <li class="nav__item"><a class="nav__link" href="{{ main_site_url }}">RAPLEV.COM</a></li>
+                    </ul>
+                    <div class="nav__search-field form-group">
+                        <div class="form-group__field-group">
+                            <input name="t" type="hidden" value="search">
+                            <input class="form-group__field" name="s" type="search" value="{{ s }}" placeholder="Search in community" required>
+                            <svg class="form-group__required">
+                                <use xlink:href="{% static 'images/sprite.svg' %}#exclamation-circle"></use>
+                            </svg>
+                        </div>
+                    </div>
+                    <button class="nav__search-btn btn btn--theme-1" type="submit" id="search_btn">SEARCH</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</header>
+{% block page-inner %}{% endblock %}
+{% endblock %}
+
+{% block bottom-script %}
+<script>
+var SPRITE = '{% static "images/sprite.svg" %}';
+</script>
+{% endblock %}

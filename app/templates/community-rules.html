@@ -1,0 +1,38 @@
+{% extends 'base-site.html' %}
+{% load i18n %}
+{% load static %}
+
+{% block title %}Rules{% endblock %}
+
+{% block page-inner %}
+<div class="body__container">
+    <div class="rules">
+        <h1 class="rules__top-heading body__wrapper">Below are your rules. Please read them carefully.</h1>
+        <div class="rules__wrapper body__wrapper">
+            <h2 class="rules__heading">1. Maecenas mattis. Sed convallis tristique sem</h2>
+            <p class="rules__text">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Nascetur ridiculus mus mauris vitae ultricies. Lacus sed viverra tellus in hac habitasse platea dictumst. Arcu dui vivamus arcu felis bibendum ut. Sed vulputate mi sit amet mauris. Nibh mauris cursus mattis molestie a. Amet tellus cras adipiscing enim eu turpis egestas pretium aenean. Sed viverra tellus in hac habitasse platea dictumst. Egestas egestas fringilla phasellus faucibus scelerisque eleifend. In pellentesque massa placerat duis ultricies lacus sed. Semper auctor neque vitae tempus.</p>
+            <aside class="rules__aside"><img class="rules__aside-image" src="{% static 'images/template/rules-image.jpg' %}" alt="">
+                <div>
+                    <h2 class="rules__heading">2. Maecenas mattis. Sed convallis tristique sem</h2>
+                    <p class="rules__text">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Nascetur ridiculus mus mauris vitae ultricies. Lacus sed viverra tellus in hac habitasse platea dictumst. Arcu dui vivamus arcu felis bibendum ut. Sed vulputate mi sit amet mauris. Nibh mauris cursus mattis molestie a. Amet tellus cras adipiscing enim eu turpis egestas pretium aenean. Sed viverra tellus in hac habitasse platea dictumst. Egestas egestas fringilla phasellus faucibus scelerisque eleifend. In pellentesque massa placerat duis ultricies lacus sed. Semper auctor neque vitae tempus.</p>
+                </div>
+            </aside>
+            <h1 class="rules__heading">3. Below are your rules. Please read them carefully</h1>
+            <p class="rules__text">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Nascetur ridiculus mus mauris vitae ultricies. Lacus sed viverra tellus in hac habitasse platea dictumst. Arcu dui vivamus arcu felis bibendum ut. Sed vulputate mi sit amet mauris. Nibh mauris cursus mattis molestie a. Amet tellus cras adipiscing enim eu turpis egestas pretium aenean. Sed viverra tellus in hac habitasse platea dictumst. Egestas egestas fringilla phasellus faucibus scelerisque eleifend. In pellentesque massa placerat duis ultricies lacus sed. Semper auctor neque vitae tempus.</p>
+            <ol class="rules__list">
+                <li class="rules__item">List item 1</li>
+                <li class="rules__item">List item 2</li>
+                <li class="rules__item">List item 3</li>
+                <li class="rules__item">List item 4<ul class="rules__list">
+                        <li class="rules__item">Bullet item 1</li>
+                        <li class="rules__item">Bullet item 2</li>
+                        <li class="rules__item">Bullet item 3</li>
+                    </ul>
+                </li>
+                <li class="rules__item">List item 5 </li>
+                <li class="rules__item">List item 6</li>
+            </ol>
+        </div>
+    </div>
+</div>
+{% endblock %}

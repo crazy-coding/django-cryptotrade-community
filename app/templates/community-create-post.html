@@ -1,0 +1,108 @@
+{% extends 'base-site.html' %}
+{% load i18n %}
+{% load static %}
+
+{% block title %}Community create post{% endblock %}
+
+{% block page-inner %}
+<div class="body__container">
+    <div class="create-post body__wrapper">
+        <div id="alert_list"></div>
+        <p class="create-post__text">If this is your first time posting, please read our 
+            <a class="link" href="/community-rules">rules</a>, it is recommended to read rules from time to time to see if anything has changed.
+        </p>
+        <form onsubmit="createPost(event)">
+            <div class="create-post__field form-group">
+                <div class="form-group__field-group">
+                    <input class="form-group__field js-textarea-limited" id="title" name="title" data-character-counter=".js-title-character-counter" autocomplete="off" placeholder="Enter title" required>
+                    <svg class="form-group__required">
+                        <use xlink:href="{% static 'images/sprite.svg' %}#exclamation-circle"></use>
+                    </svg>
+                </div>
+            </div>
+            <p class="create-post__counter">Character remaining: <span class="js-title-character-counter">150</span></p>
+            <div class="create-post__editor">
+                <!-- Quill editor-->
+                <div class="js-editor-toolbar">
+                    <button class="ql-bold"></button>
+                    <button class="ql-italic"></button>
+                    <button class="ql-underline"></button>
+                    <button class="ql-strike"></button>
+                    <span class="ql-formats">
+                        <button class="ql-list" value="ordered"></button>
+                        <button class="ql-list" value="bullet"></button>
+                    </span>
+                </div>
+                <div class="ql-wrapper">
+                    <div class="js-editor" id="context"></div>
+                </div><!-- Quill editor-->
+            </div>
+            <p class="create-post__counter">Character remaining: <span class="js-editor-limit-counter">4000</span></p>
+            <button class="create-post__submit btn btn--theme-1" type="submit">POST</button>
+        </form>
+    </div>
+</div>
+{% endblock %}
+
+{% block bottom-script %}
+{{ block.super }}
+<script>
+$(function () {
+    $.ajax({
+        url: main_site_url + '/posts/' + '{{ pk }}',
+        dataType: 'json',
+        type: 'get',
+        contentType: 'application/x-www-form-urlencoded',
+        headers: {
+            'Authorization': 'Token ' + isAuthenticated()
+        },
+        // data: data,
+        success: function( data, textStatus, jQxhr ){
+            $('#title').val(data.title);
+            $('#context .ql-editor').html(data.context);
+        },
+        error: function( jqXhr, textStatus, errorThrown ){
+            console.log( errorThrown );
+            alertMessage(JSON.parse(jqXhr.responseText).non_field_errors, 'warning')
+        }
+    });
+})
+
+var createPost = function (e) {
+    e.preventDefault();
+    var data = {
+        title: $('#title').val(),
+        context: $('#context .ql-editor').html()
+    }
+    $.ajax({
+        url: main_site_url + '/posts/' + '{% if pk %}{{ pk }}/{% endif %}',
+        dataType: 'json',
+        type: '{% if pk %}PUT{% else %}POST{% endif %}',
+        contentType: 'application/x-www-form-urlencoded',
+        headers: {
+            'Authorization': 'Token ' + isAuthenticated()
+        },
+        data: data,
+        success: function( data, textStatus, jQxhr ){
+
+            $('#alert_list').html('' +
+            '<aside class="create-post__alert alert alert--note">' +
+            '    <span class="alert__text">Your post is now live. Visit ' +
+            '        <a class="link" href="/community-single-post/' + data.id + '">this link</a> to view' +
+            '    </span>' +
+            '    <button class="alert__close-btn" type="button" onclick="alertNote.close(this)">' +
+            '        <svg class="alert__close-icon">' +
+            '            <use xlink:href="' + '{% static "images/sprite.svg" %}' + '#times"></use>' +
+            '        </svg>' +
+            '    </button>' +
+            '</aside>')
+        },
+        error: function( jqXhr, textStatus, errorThrown ){
+            console.log( errorThrown );
+            alertMessage(JSON.parse(jqXhr.responseText).non_field_errors, 'warning')
+        }
+    });
+}
+</script>
+{% endblock %}
+        

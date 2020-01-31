@@ -1,0 +1,222 @@
+{% extends 'base-site.html' %}
+{% load i18n %}
+{% load static %}
+
+{% block title %}Community single post{% endblock %}
+
+{% block page-inner %}
+<div class="body__container">
+    <div class="single-post body__wrapper">
+        <div id="post_panel"></div>
+        <h2 class="single-post__heading">Post your comment</h2>
+        <form onsubmit="createPostComment(event)">
+            <!-- Quill editor-->
+            <div class="js-editor-toolbar"><button class="ql-bold"></button><button class="ql-italic"></button><button class="ql-underline"></button><button class="ql-strike"></button><span class="ql-formats"><button class="ql-list" value="ordered"></button><button class="ql-list" value="bullet"></button></span></div>
+            <div class="ql-wrapper">
+                <div class="js-editor" id="message"></div><span class="ql-counter js-editor-char-counter">0</span>
+            </div><!-- Quill editor-->
+            <button class="single-post__submit btn btn--theme-1" type="submit">POST</button>
+        </form>
+        <section class="single-post__replies">
+            <h2 class="single-post__heading">Replies</h2>
+            <div id="comment_panel"></div>
+        </section>
+    </div>
+</div>
+{% endblock %}
+
+{% block bottom-script %}
+{{ block.super }}
+<script>
+$(function () {
+    $.ajax({
+        url: main_site_url + '/posts/' + '{{ pk }}',
+        dataType: 'json',
+        type: 'get',
+        contentType: 'application/x-www-form-urlencoded',
+        headers: {
+            'Authorization': 'Token ' + isAuthenticated()
+        },
+        // data: data,
+        success: function( data, textStatus, jQxhr ){
+            var item = '' +
+                '<article class="single-post__top-item post">' +
+                '    <div class="post__inner">' +
+                '        <div class="post__control">' +
+                '            <button class="post__control-btn" type="button">' +
+                '                <svg class="post__control-pinned-icon">' +
+                '                    <use xlink:href="' + SPRITE + '#thumbtack"></use>' +
+                '                </svg>' +
+                '            </button>' +
+                '            <button class="post__control-btn" type="button">' +
+                '                <svg class="post__control-rate-icon">' +
+                '                    <use xlink:href="' + SPRITE + '#caret-up"></use>' +
+                '                </svg>' +
+                '            </button>' +
+                '            <button class="post__control-btn" type="button">' +
+                '                <svg class="post__control-rate-icon">' +
+                '                    <use xlink:href="' + SPRITE + '#caret-down"></use>' +
+                '                </svg>' +
+                '            </button>' +
+                '        </div>' +
+                '        <div class="post__wrapper">' +
+                '            <header class="post__header">' +
+                '                <h2 class="post__heading"><a class="post__heading-link" href="/community-single-post/?pk=' + data.id + '">' + data.title + '</a></h2>' +
+                '                <button class="post__flag-btn" type="button">' +
+                '                    <svg class="post__flag-icon">' +
+                '                        <use xlink:href="' + SPRITE + '#flag"></use>' +
+                '                   </svg>' +
+                '                </button>' +
+                '           </header>' +
+                '            <p class="post__text show-more">' + data.beauty_context +
+                '                <span class="show-more__hidden">' + data.hidden_context + '</span>' +
+                '                <button class="show-more__btn js-hidden-text" type="button" onclick="hiddenText.toggle(this)">Read more</button>' +
+                '            </p>' +
+                '            <footer class="post__footer">' +
+                '                <span class="post__footer-item">' +
+                '                    <svg class="post__footer-icon">' +
+                '                       <use xlink:href="' + SPRITE + '#caret-up"></use>' +
+                '                    </svg>' +
+                '                    <span>' + data.upvotes_count + ' people upvoted</span>' +
+                '                </span>' +
+                '                <span class="post__footer-item">' +
+                '                    <svg class="post__footer-icon">' +
+                '                        <use xlink:href="' + SPRITE + '#comment-dots"></use>' +
+                '                    </svg>' +
+                '                   <span> <a href="#">' + data.comments_count + ' comments</a></span>' +
+                '                </span>' +
+                '                <span class="post__footer-item">' +
+                '                    <svg class="post__footer-icon">' +
+                '                        <use xlink:href="' + SPRITE + '#clock"></use>' +
+                '                    </svg>' +
+                '                    <span>' + data.get_update_time + '</span>' +
+                '                </span>' +
+                '            </footer>' +
+                '        </div>' +
+                '    </div>' +
+                '</article>';
+
+                $('#post_panel').html(item);
+
+        },
+        error: function( jqXhr, textStatus, errorThrown ){
+            console.log( errorThrown );
+            alertMessage(JSON.parse(jqXhr.responseText).non_field_errors, 'warning')
+        }
+    });
+
+    $.ajax({
+        url: main_site_url + '/comments/?' + 'p={{ pk }}',
+        dataType: 'json',
+        type: 'get',
+        contentType: 'application/x-www-form-urlencoded',
+        headers: {
+            'Authorization': 'Token ' + isAuthenticated()
+        },
+        // data: data,
+        success: function( data, textStatus, jQxhr ){
+            var comments_panel = $('#comment_panel');
+            data.results.forEach(function (e, i) {
+                var first_post = $('<div class="single-post__item post"></div>');
+                var first_level_post_inner = $(get_comment_html(e))
+                var second_level_posts = $('<div class="post"><div>');
+
+                e.sub_comment_list.forEach(function (f, j) {
+                    var second_post = second_level_posts;
+                    var second_level_post_inner = $(get_comment_html(f))
+                    var third_level_posts = $('<div class="post"><div>');
+
+                    f.sub_comment_list.forEach(function (g, k) {
+                        var third_post = third_level_posts;
+                        var third_level_post_inner = $(get_comment_html(g))
+                        third_post.append(third_level_post_inner)
+                    })
+
+                    second_post.append(second_level_post_inner)
+                    second_post.append(third_level_posts)
+                })
+
+                first_post.append(first_level_post_inner)
+                first_post.append(second_level_posts)
+                comments_panel.append(first_post)
+            })
+
+        },
+        error: function( jqXhr, textStatus, errorThrown ){
+            console.log( errorThrown );
+            alertMessage(JSON.parse(jqXhr.responseText).non_field_errors, 'warning')
+        }
+    });
+
+})
+
+var get_comment_html = function (e) {
+    return '' +
+        '<div class="post__inner">' +
+        '    <div class="post__control">' +
+        '        <button class="post__control-btn" type="button">' + 
+        '            <svg class="post__control-rate-icon">' +
+        '                <use xlink:href="' + SPRITE + '#caret-up"></use>' +
+        '            </svg>' + 
+        '        </button>' +
+        '        <button class="post__control-btn" type="button">' +
+        '           <svg class="post__control-rate-icon">' +
+        '                <use xlink:href="' + SPRITE + '#caret-down"></use>' +
+        '            </svg>' +
+        '        </button>' +
+        '    </div>' +
+        '    <div class="post__wrapper">' +
+        '        <p class="post__text show-more">' + e.beauty_context +
+        '            <span class="show-more__hidden">' + e.hidden_context + '</span>' +
+        '            <button class="show-more__btn js-hidden-text" type="button" onclick="hiddenText.toggle(this)">Read more</button>' +
+        '        </p>' +
+        '        <footer class="post__footer">' +
+        '            <span class="post__footer-item">' +
+        '                <svg class="post__footer-icon">' +
+        '                    <use xlink:href="' + SPRITE + '#caret-up"></use>' +
+        '                </svg>' +
+        '                <span>' + e.upvotes_count + ' people upvoted</span>' +
+        '            </span>' +
+        '            <span class="post__footer-item">' +
+        '                <svg class="post__footer-icon">' +
+        '                    <use xlink:href="' + SPRITE + '#comment-dots"></use>' +
+        '                </svg>' +
+        '                <a href="#">' + e.comments_count + ' comments</a>' +
+        '            </span>' +
+        '            <span class="post__footer-item">' +
+        '                <svg class="post__footer-icon">' +
+        '                    <use xlink:href="' + SPRITE + '#clock"></use>' +
+        '                </svg>' +
+        '                <span>' + e.get_update_time + '</span>' +
+        '            </span>' +
+        '        </footer>' +
+        '    </div>' +
+        '</div>';
+}
+
+var createPostComment = function (e) {
+    e.preventDefault();
+    var data = {
+        post_id: '{{ pk }}',
+        message: $('#message .ql-editor').html()
+    };
+    $.ajax({
+        url: main_site_url + '/comments/',
+        dataType: 'json',
+        type: 'POST',
+        contentType: 'application/x-www-form-urlencoded',
+        headers: {
+            'Authorization': 'Token ' + isAuthenticated()
+        },
+        data: data,
+        success: function( data, textStatus, jQxhr ){
+            $('#comment_panel').append($('<div class="single-post__item post">'+get_comment_html(data)+'</div>'))
+        },
+        error: function( jqXhr, textStatus, errorThrown ){
+            console.log( errorThrown );
+            alertMessage(JSON.parse(jqXhr.responseText)[0], 'warning')
+        }
+    });
+}
+</script>
+{% endblock %}
