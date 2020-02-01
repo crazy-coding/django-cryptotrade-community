@@ -120,6 +120,6 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/2.2/howto/static-files/
 
 STATIC_URL = '/static/'
+STATIC_ROOT = '/var/www/community/static'
 
-# MAIN_SITE_URL = 'http://unstable-v.raplev.com'
-MAIN_SITE_URL = 'http://localhost:8000'
+MAIN_SITE_URL = 'http://unstable-v.raplev.com'
