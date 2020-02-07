@@ -1,6 +1,6 @@
 var isAuthenticated = function () {
-    if (window.localStorage.getItem('token')) {
-        return window.localStorage.getItem('token');
+    if (window.localStorage.getItem('auth_user')) {
+        return JSON.parse(window.localStorage.getItem('auth_user')).token;
     } else {
         return false;
     }
@@ -20,7 +20,7 @@ var login = function(e) {
         contentType: 'application/x-www-form-urlencoded',
         data: data,
         success: function( data, textStatus, jQxhr ){
-            window.localStorage.setItem('token', data.token);
+            window.localStorage.setItem('auth_user', JSON.stringify(data));
             location.href = '/';
         },
         error: function( jqXhr, textStatus, errorThrown ){
@@ -39,7 +39,7 @@ var logout = function() {
             'Authorization': 'Token ' + isAuthenticated()
         },
         success: function( data, textStatus, jQxhr ){
-            window.localStorage.removeItem('token');
+            window.localStorage.removeItem('auth_user');
             location.href = '/';
         },
         error: function( jqXhr, textStatus, errorThrown ){
