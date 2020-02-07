@@ -44,7 +44,9 @@ var logout = function() {
         },
         error: function( jqXhr, textStatus, errorThrown ){
             console.log( errorThrown );
-            alertMessage(JSON.parse(jqXhr.responseText).non_field_errors, 'warning')
+            // alertMessage(JSON.parse(jqXhr.responseText).non_field_errors, 'warning')
+            window.localStorage.removeItem('auth_user');
+            location.href = '/';
         }
     });
 }
