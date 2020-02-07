@@ -8,6 +8,7 @@
 
 {% block content %}
 <form class="dialog__container" id="login_form" onsubmit="login(event)">
+    <input type="hidden" name="sname" value="community"/>
     <a class="dialog__logo" href="/">
         <img class="dialog__logo-img" src="{% static 'images/logo.png' %}" alt="Raplev logo">
     </a>
