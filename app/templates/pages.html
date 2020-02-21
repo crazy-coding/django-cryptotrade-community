@@ -1,0 +1,42 @@
+{% extends 'base-site.html' %}
+{% load i18n %}
+{% load static %}
+
+{% block title %}Affiliates Pages{% endblock %}
+
+{% block head-script %}
+<style>
+    .pages-list {
+        padding-top: 30px;
+        padding-left: 30px;
+        padding-bottom: 30px;
+    }
+    .pages-item {
+        padding: 3px 10px;
+    }
+</style>
+{% endblock %}
+
+{% block page-inner %}
+<main class="page__inner">
+    <ul class="pages-list">
+        <li class="pages-item"><a href="/login/">Login</a></li>
+
+        <br>
+        <br>
+        <p>
+        ============== Login required ===================<br>
+        [   user:'admin', password:'123super321'   ]
+        </p>
+
+        <li class="pages-item"><a href="/home">Index</a></li>
+        <li class="pages-item"><a href="/your-posts/">Your Posts</a></li>
+        <li class="pages-item"><a href="/search-results/">Search Result</a></li>
+        <li class="pages-item"><a href="/community-rules/">Community Rules</a></li>
+        <li class="pages-item"><a href="/report-post/">Report Post</a></li>
+        <li class="pages-item"><a href="/community-single-post/1">Community Single Post</a></li>
+        <li class="pages-item"><a href="/community-create-post/">Community Create Post</a></li>
+        <li class="pages-item"><a href="/community-create-post/1">Community Edit Post</a></li>
+    </ul>
+</main>
+{% endblock %}

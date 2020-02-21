@@ -5,12 +5,12 @@ from . import views
                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                 
 app_name = ''
 urlpatterns = [
+    path('pages/', TemplateView.as_view(template_name='pages.html'), name='pages'),
+
     # Not Logged In
-    # path('login/', views.Login.as_view(), name='login'),
     path('login', TemplateView.as_view(template_name='login.html'), name='login'),
     
-    # # Login Required
-    # path('logout/', views.logout, name='logout'),
+    # Login Required
 
     path('', TemplateView.as_view(template_name='home.html'), name='index'),
     path('home/', TemplateView.as_view(template_name='home.html'), name='home'),
