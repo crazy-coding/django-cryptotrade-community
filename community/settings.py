@@ -122,4 +122,4 @@ USE_TZ = True
 STATIC_URL = '/static/'
 STATIC_ROOT = '/var/www/community/static'
 
-MAIN_SITE_URL = 'http://unstable-v.raplev.com/api'
+MAIN_SITE_URL = 'http://beta.raplev.com/api'
