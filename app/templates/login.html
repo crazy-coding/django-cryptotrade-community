@@ -1,4 +1,4 @@
-{% extends 'base.html' %}
+{% extends 'base-site.html' %}
 {% load i18n %}
 {% load static %}
 
@@ -6,30 +6,46 @@
 
 {% block body %}dialog login{% endblock %}
 
-{% block content %}
-<form class="dialog__container" id="login_form" onsubmit="login(event)">
-    <input type="hidden" name="sname" value="community"/>
-    <a class="dialog__logo" href="/">
-        <img class="dialog__logo-img" src="{% static 'images/logo.png' %}" alt="Raplev logo">
-    </a>
-        
-    <div class="login__fields">
-        <div class="dialog__field form-group">
-            <div class="form-group__field-group">
-                <input class="form-group__field" name="username" autocomplete="username" placeholder="Username" required>
+{% block head-script %}
+{{ block.super }}
+<style>
+@media (min-width: 1200px) {
+    .login_form {
+        width: 60%;
+        margin: auto;
+    }
+}
+</style>
+{% endblock %}
+
+{% block page-inner %}
+<div class="body__container">
+    <div class="login_form">
+        <form class="home__wrapper body__wrapper" id="login_form" onsubmit="login(event)">
+            <input type="hidden" name="sname" value="community"/>
+            <!-- <a class="dialog__logo" href="/">
+                <img class="dialog__logo-img" src="{% static 'images/logo.png' %}" alt="Raplev logo">
+            </a> -->
+            <h3>Log In</h3>
+            <div class="login__fields">
+                <div class="dialog__field form-group" style="margin-bottom: 20px;">
+                    <div class="form-group__field-group">
+                        <input class="form-group__field" name="username" autocomplete="username" placeholder="Username" required>
+                    </div>
+                </div>
+                <div class="dialog__field form-group" style="margin-bottom: 20px;">
+                    <div class="form-group__field-group">
+                        <input class="form-group__field" name="password" type="password" autocomplete="current-password" placeholder="Password" required>
+                    </div>
+                </div>
             </div>
-        </div>
-        <div class="dialog__field form-group {% if error.password %}is-invalid{% endif %}">
-            <div class="form-group__field-group">
-                <input class="form-group__field" name="password" type="password" autocomplete="current-password" placeholder="Password" required>
+            <div class="login__control">
+                <button class="login__submit btn btn--round btn--theme-1" type="submit">LOGIN</button>
+                <!-- <a href="{{ main_site_url }}/forgot-password-email/">Forgot your password?</a> -->
             </div>
-        </div>
+        </form>
     </div>
-    <div class="login__control">
-        <button class="login__submit btn btn--round btn--theme-1" type="submit">LOGIN</button>
-        <a href="{{ main_site_url }}/forgot-password-email/">Forgot your password?</a>
-    </div>
-</form>
+</div>
 {% endblock %}
 
 {% block bottom-script %}

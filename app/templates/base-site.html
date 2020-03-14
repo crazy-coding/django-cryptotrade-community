@@ -30,8 +30,8 @@
             <form action="{% url 'search-results' %}">
                 <div class="nav__container">
                     <ul class="nav__list">
-                        <li class="nav__item is-active"><a class="nav__link" href="{% url 'home' %}">POSTS</a></li>
-                        <li class="nav__item"><a class="nav__link" href="{% url 'community-rules' %}">RULES</a></li>
+                        <li class="nav__item {% if 'home' in request.path %}is-active{% endif %}"><a class="nav__link" href="{% url 'home' %}">POSTS</a></li>
+                        <li class="nav__item {% if 'community-rules' in request.path %}is-active{% endif %}"><a class="nav__link" href="{% url 'community-rules' %}">RULES</a></li>
                         <li class="nav__item"><a class="nav__link" href="{{ main_site_url }}">RAPLEV.COM</a></li>
                     </ul>
                     <div class="nav__search-field form-group">
