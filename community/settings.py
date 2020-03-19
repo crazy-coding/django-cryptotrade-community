@@ -25,7 +25,7 @@ SECRET_KEY = '4&-b$as$ul72w^g1-ukaqp*x(3b5ma8uy$0#@u@c%3hj$+yu27'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ['community.raplev.com']
+ALLOWED_HOSTS = ['community.cryptptrade.com']
 
 
 # Application definition
@@ -122,4 +122,4 @@ USE_TZ = True
 STATIC_URL = '/static/'
 STATIC_ROOT = '/var/www/community/static'
 
-MAIN_SITE_URL = 'http://beta.raplev.com/api'
+MAIN_SITE_URL = 'http://beta.cryptptrade.com/api'
